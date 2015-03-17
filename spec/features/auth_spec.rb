@@ -36,7 +36,7 @@ feature "logging in" do
     end
 
     it "should redirect to signin page on failure" do
-      log_out
+      logout
       sign_in("dfafad")
       expect(page).to have_content "Sign In"
     end
@@ -46,14 +46,13 @@ end
 
 feature "home page" do
   scenario "links to users page" do
-
     sign_up("gizmo")
+    logout
     sign_up("cj")
     click_on "cj"
     expect(page).to have_content "cj"
   end
-
-  scenario "new goal button if logged in"
+  
 end
 
 feature "logging out" do

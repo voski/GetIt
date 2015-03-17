@@ -1,0 +1,35 @@
+<h1>Edit Goal</h1>
+
+<form class="edit_goal_form" action="<%= goal_url(@goal) %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <%= auth_input %>
+
+  <label for="goal">Goal</label>
+  <input type="text" name="goal[name]" id="goal" value="<%= @goal.name %>">
+  <br>
+
+
+
+  <% Goal::GOAL_STATUS.each do |status| %>
+    <label for="<%= status %>"><%= status %></label>
+    <input type="radio"
+           name="goal[status]"
+           id="<%= status %>"
+           value="<%= status %>"
+           <%= "checked" if @goal.status == status %>
+           ><br>
+  <% end %>
+
+  <% Goal::GOAL_COMPLETION.each do |status| %>
+    <label for="<%= status %>"><%= status %></label>
+    <input type="radio"
+           name="goal[completion]"
+           id="<%= status %>"
+           value="<%= status %>"
+           <%= "checked" if @goal.completion == status %>
+           ><br>
+  <% end %>
+
+  <input type="submit" value="Edit Goal">
+
+</form>

@@ -1,0 +1,8 @@
+<h1><%= @goal.name %></h1>
+Completion: <%= @goal.completion %>
+<br>
+<% if @goal.author?(current_user) %>
+  Privacy Status: <%= @goal.status %>
+  <br>
+<% end %>
+<%= link_to("Edit Goal", edit_goal_url(params[:id])) if @goal.author?(current_user) %>

@@ -20,10 +20,20 @@ def logout
   click_button "Sign Out"
 end
 
+def create_goal(goal_name, privacy = "public")
+  fill_in "Goal", with: goal_name
+  if privacy == "public"
+    choose("public")
+  else
+    choose("private")
+  end
+  click_button "Create Goal"
+end
 
-
-
-
+def update_goal(goal_name)
+  fill_in "Goal", with: goal_name
+  click_button "Edit Goal"
+end
 
 
 

@@ -1,0 +1,21 @@
+<h1>Create Goal</h1>
+
+<form class="create_goal_form" action="/goals" method="post">
+<%= auth_input %>
+
+<label for="goal">Goal</label>
+<input type="text" name="goal[name]" id="goal" value="<%= @goal.name %>">
+<br>
+
+
+
+<% Goal::GOAL_STATUS.each do |status| %>
+  <label for="<%= status %>"><%= status %></label>
+  <input type="radio" name="goal[status]" id="<%= status %>" value="<%= status %>"><br>
+<% end %>
+
+<input type="hidden" name="goal[completion]" value="incomplete">
+
+<input type="submit" value="Create Goal">
+
+</form>
