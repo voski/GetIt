@@ -6,3 +6,26 @@ Completion: <%= @goal.completion %>
   <br>
 <% end %>
 <%= link_to("Edit Goal", edit_goal_url(params[:id])) if @goal.author?(current_user) %>
+
+
+<h4>Comments</h4>
+<ul>
+<% @goal.comments && @goal.comments.each do |comment| %>
+  <li>
+    <%= comment.message %>
+    
+    <%= button_to("delete", comment_url(comment), method: :delete) if comment.authorized?(current_user) || comment.authorized?(@goal.user) %>
+  </li>
+<% end %>
+</ul>
+
+<form action="<%= comments_url %>" method="post">
+<%= auth_input %>
+<input type="hidden" name="comment[commentable_id]" value="<%= @goal.id %>">
+<input type="hidden" name="comment[commentable_type]" value="<%= @goal.class %>">
+
+<label for="goal_comment_form">goal_comment_form</label><br>
+<textarea name="comment[message]" id="goal_comment_form" rows="8" cols="40"></textarea>
+
+<input type="submit" value="Add Comment">
+</form>

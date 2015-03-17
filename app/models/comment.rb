@@ -21,4 +21,8 @@ class Comment < ActiveRecord::Base
     foreign_key: :author_id,
     primary_key: :id
   )
+
+  def authorized?(user)
+    (user.id == self.author_id) || (user.id == self.commentable_id)
+  end
 end

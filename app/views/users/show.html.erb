@@ -10,3 +10,25 @@
   </li>
 <% end %>
 </ul>
+
+<h4>Comments</h4>
+<ul>
+<% @user.comments && @user.comments.each do |comment| %>
+  <li>
+    <%= comment.message %>
+    <%= fail %>
+    <%= button_to("delete", comment_url(comment), method: :delete) if comment.authorized?(current_user) || comment.authorized?(@user) %>
+  </li>
+<% end %>
+</ul>
+
+<form action="<%= comments_url %>" method="post">
+<%= auth_input %>
+<input type="hidden" name="comment[commentable_id]" value="<%= @user.id %>">
+<input type="hidden" name="comment[commentable_type]" value="<%= @user.class %>">
+
+<label for="user_comment_form">user_comment_form</label><br>
+<textarea name="comment[message]" id="user_comment_form" rows="8" cols="40"></textarea>
+
+<input type="submit" value="Add Comment">
+</form>
